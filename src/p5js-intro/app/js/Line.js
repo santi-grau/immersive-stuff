@@ -1,5 +1,5 @@
 class Line{
-    constructor( startPoint, endPoint, curveDetail = 20 ){
+    constructor( startPoint, endPoint, curveDetail = 6 ){
         this.aPoint = startPoint
         this.bPoint = endPoint
         this.segmentLength = curveDetail

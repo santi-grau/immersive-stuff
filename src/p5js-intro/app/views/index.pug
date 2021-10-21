@@ -8,4 +8,18 @@ html
     title p5js-intro
     link(rel='stylesheet', id='mainStylesheet' href='../css/main.styl')
   body
+    #settings
+      .set
+        //- label portrait
+        select#portraitSelect
+          option( value='p1' ) Portrait 1
+          option( value='p2' ) Portrait 2
+          option( value='p3' ) Portrait 3
+          option( value='p4' selected ) Portrait 4
+      //- .set
+      //-   label recursion
+      //-   input#recursionInput( type='range' min = '1' max = '30' value = '10' )
+      //- .set
+      //-   label curve
+      //-   input#detailInput( type='range' min = '1' max = '20' value = '10' )
     script(src='../js/main.js')

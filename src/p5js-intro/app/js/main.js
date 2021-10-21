@@ -1,20 +1,22 @@
 import p5 from 'p5'
-import portrait from './../assets/p1.png'
+import portraits from './../assets/*.png'
 import Line from './Line'
+
+let renderer, portrait = portraits.p4
 
 class Renderer extends p5{
     static redirectP5Callbacks( p ) { p.preload = p.preload.bind( p ) }
 
-    constructor( ){
+    constructor( portrait = 'p4' ){
         super( Renderer.redirectP5Callbacks )
         this.levels = 8
-        this.portraitSize = 200
+        this.portraitSize = 150
         this.density = 1
         this.startLines = 1
-        this.minLineLength = 20
+        this.minLineLength = 15
         this.maxLineLength = 30
         this.recurred = 0
-        this.recursionLevel = 5
+        this.recursionLevel = 10
         this.curveDetail = 10
         this.speed = 1
         this.points = []
@@ -22,18 +24,19 @@ class Renderer extends p5{
         this.lines = []
         this.levelData = new Array(this.levels).fill(0)
         this.pointsToDraw = new Array(this.levels).fill(0)
+        this.portrait = portrait
     }
 
     preload( ){ this.img = this.loadImage( portrait ) }
 
     setup( ){
-        let size = Math.min( window.innerWidth, window.innerHeight )
+        let size = Math.min( window.innerWidth, window.innerHeight ) * 0.8
         this.createCanvas( size, size )
         this.getImagePoints()
         this.pixelDensity( 2 )
         this.strokeWeight( 0.25 )
         
-        this.stroke( 255 )
+        this.stroke( 0, 0, 0, 200 )
         for( var i = 0 ; i < this.startLines ; i++ ){
             let aPoint = this.points.shift()
             this.lines.push( new Line( aPoint, this.getNextPoint( aPoint) ) )
@@ -71,6 +74,7 @@ class Renderer extends p5{
 
     getNextPoint( aPoint ){
         let candidates = [], alternates = []
+        
         this.points.forEach( ( p, i ) => {
             let [ x, y ] = [ p.x - aPoint.x, p.y - aPoint.y ]
             var d = Math.sqrt( x * x + y * y )
@@ -99,7 +103,7 @@ class Renderer extends p5{
                     l.aPoint = l.bPoint
                     l.bPoint = this.getNextPoint( l.aPoint )
                     l.computeSegments()
-                    if( this.recurred < this.recursionLevel && Math.random() > 0.8 ) {
+                    if( this.recurred < this.recursionLevel && Math.random() > 0.9 ) {
                         this.lines.push( new Line( l.aPoint, this.getNextPoint( l.aPoint ) ) )
                         this.recurred++
                     }
@@ -109,4 +113,41 @@ class Renderer extends p5{
     }
 }
 
-new Renderer()
+
+
+class Main{
+    constructor(){
+        document.querySelector( '#portraitSelect' ).addEventListener( 'change', e => {
+            portrait = portraits[ e.currentTarget.value ]
+            this.restart()
+        } )
+        
+        document.addEventListener( 'dragover', e => e.preventDefault(), false )
+        document.addEventListener( 'drop', e => this.onDrop( e ), false )
+
+        this.restart()
+    }
+
+    onDrop( e ){
+        e.preventDefault()
+
+        let file = e.dataTransfer.files[ 0 ]
+        var ext = file.name.split( '.' )[ file.name.split( '.' ).length - 1 ]
+        if (!file.name.match(/.(jpg|jpeg|png|gif)$/i)) return alert('Needz image plz!')
+        
+        var reader  = new FileReader()
+        reader.onloadend = e => {
+            var img = new Image()
+            img.onload = () => this.restart()
+            img.src = reader.result
+        }
+        reader.readAsDataURL( file )
+    }
+
+    restart(){
+        if( renderer ) renderer.remove()
+        renderer = new Renderer( )
+    }
+}
+
+new Main()
