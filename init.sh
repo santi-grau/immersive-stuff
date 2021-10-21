@@ -125,7 +125,7 @@ mkdir src/$(echo $varname)/app/css
   echo '  "main": "index.js",'
   echo '  "scripts": {'
   echo '    "start": "parcel app/views/index.pug --open",'
-  echo '    "build": "rm -rf ./../../build/'${varname}' && parcel build app/views/index.pug --no-source-maps --out-dir ./../../build/'${varname}' --public-url '.'"'
+  echo '    "build": "rm -rf ./../../docs/'${varname}' && parcel build app/views/index.pug --no-source-maps --out-dir ./../../docs/'${varname}' --public-url '.'"'
   echo '  },'
   echo '  "keywords": [],'
   echo '  "author": "proper-code",'

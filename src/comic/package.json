@@ -1,11 +1,11 @@
 {
-  "name": "simulator",
+  "name": "comic",
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "parcel app/views/index.pug",
-    "build": "rm -rf build && parcel build app/views/index.pug --no-source-maps --out-dir build --public-url '.'"
+    "build": "rm -rf ./../../docs/comic && parcel build app/views/index.pug --no-source-maps --out-dir ./../../docs/comic --public-url '.'"
   },
   "keywords": [],
   "author": "proper-code",
