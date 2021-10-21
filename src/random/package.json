@@ -1,0 +1,21 @@
+{
+  "name": "random",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel app/views/index.pug --open",
+    "build": "rm -rf ./../../build/random && parcel build app/views/index.pug --no-source-maps --out-dir ./../../build/random --public-url '.'"
+  },
+  "keywords": [],
+  "author": "proper-code",
+  "license": "ISC",
+  "devDependencies": {
+    "figlet": "*",
+    "parcel-bundler": "*",
+    "pug": "^3.0.2",
+    "stylus": "^0.55.0"
+  },
+  "dependencies": {
+  }
+}
