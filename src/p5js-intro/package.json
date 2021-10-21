@@ -1,11 +1,11 @@
 {
-  "name": "simulator",
+  "name": "p5js-intro",
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "parcel app/views/index.pug --open",
-    "build": "rm -rf build && parcel build app/views/index.pug --no-source-maps --out-dir build --public-url '.'"
+    "build": "rm -rf ./../../build/p5js-intro && parcel build app/views/index.pug --no-source-maps --out-dir ./../../build/p5js-intro --public-url '.'"
   },
   "keywords": [],
   "author": "proper-code",
@@ -17,6 +17,6 @@
     "stylus": "^0.55.0"
   },
   "dependencies": {
-    "three": "*"
+    "p5": "^1.4.0"
   }
 }
