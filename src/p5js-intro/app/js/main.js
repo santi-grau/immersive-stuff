@@ -132,17 +132,12 @@ class Main{
         e.preventDefault()
 
         let file = e.dataTransfer.files[ 0 ]
-        var ext = file.name.split( '.' )[ file.name.split( '.' ).length - 1 ]
         if (!file.name.match(/.(jpg|jpeg|png|gif)$/i)) return alert('Needz image plz!')
         
         var reader  = new FileReader()
-        reader.onloadend = e => {
-            var img = new Image()
-            img.onload = () => {
-                portrait = reader.result
-                this.restart()
-            }
-            img.src = reader.result
+        reader.onloadend = () => {
+            portrait = reader.result
+            this.restart()
         }
         reader.readAsDataURL( file )
     }
