@@ -138,7 +138,10 @@ class Main{
         var reader  = new FileReader()
         reader.onloadend = e => {
             var img = new Image()
-            img.onload = () => this.restart()
+            img.onload = () => {
+                portrait = reader.result
+                this.restart()
+            }
             img.src = reader.result
         }
         reader.readAsDataURL( file )
